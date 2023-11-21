@@ -7,10 +7,12 @@ namespace w2routing.Controllers;
 public class JsonController : ControllerBase
 {
     private readonly ILogger<JsonController> _logger;
+    private DataRepository _dataRepository;
 
-    public JsonController(ILogger<JsonController> logger)
+    public JsonController(ILogger<JsonController> logger, DataRepository dataRepository)
     {
         _logger = logger;
+        _dataRepository = dataRepository;
     }
 
     [Route("")]
