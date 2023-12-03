@@ -12,13 +12,16 @@
       theme="dark"
       class="rounded-lg"
     />
+    <charts-view></charts-view>
   </div>
 </template>
 
 <script>
+import ChartsView from './chart/ChartsView';
 
 export default {
   name: 'App',
+  components: { ChartsView },
   data() {
     return {
       itemsPerPage: 10,
@@ -57,5 +60,6 @@ export default {
   padding: 30px;
   background-color: #424242;
   height: 100vh;
+  overflow: auto;
 }
 </style>
