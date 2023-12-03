@@ -1,26 +1,61 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="content">
+    <v-data-table-server 
+      v-model:items-per-page="itemsPerPage"
+      :headers="headers"
+      :items-length="totalItems"
+      :items="measurements"
+      :loading="loading"
+      :search="search"
+      item-value="id"
+      @update:options="loadItems"
+      theme="dark"
+      class="rounded-lg"
+    />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  data() {
+    return {
+      itemsPerPage: 10,
+      headers: [
+        { title: 'Id', key: 'id', sortable: false },
+        { title: 'Date', key: 'date', sortable: true },
+        { title: 'Time', key: 'time', sortable: true },
+        { title: 'Critical', key: 'isCritical', sortable: false },
+        { title: 'Value', key: 'value', sortable: true },
+        { title: 'Type', key: 'type', sortable: false },
+      ],
+      totalItems: 100,
+      measurements: [ { id: 1, date: "03-12-2023", time: "21:11", isCritical: false, value: 100.0, type: "Temperature" } ],
+      loading: false,
+      search: '',
+    };
+  },
+  methods: {
+    loadItems() {
+      this.loading = true;
+      // API call
+      // this.measurements = measurements;
+      // this.totalItems = total;
+      this.loading = false;
+    }
+  },
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+::-webkit-scrollbar {
+  display: none;
+}
+
+.content {
+  padding: 30px;
+  background-color: #424242;
+  height: 100vh;
 }
 </style>
