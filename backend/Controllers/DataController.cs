@@ -7,7 +7,7 @@ namespace dotNet_bakery.Controller;
 
 [Controller]
 [Route("api/[controller]")]
-public class DataController: Controller{
+public class DataController: ControllerBase{
 
     private readonly DataRepository _dataRepository;
 
