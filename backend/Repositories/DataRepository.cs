@@ -27,8 +27,8 @@ public class DataRepository
         return await _dataModels.Find(new BsonDocument()).ToListAsync();
     }
 
-    public async Task DeleteAsync(string id){
-        FilterDefinition<DataModel> filter = Builders<DataModel>.Filter.Eq("id", id);
+    public async Task DeleteAsync(ObjectId dataId){
+        FilterDefinition<DataModel> filter = Builders<DataModel>.Filter.Eq("dataId", dataId);
         await _dataModels.DeleteOneAsync(filter);
         return;
     }

@@ -4,7 +4,9 @@ using MongoDB.Bson.Serialization.Attributes;
 public class DataModel
 {
     [BsonId]
-    [BsonRepresentation(BsonType.Int32)]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public ObjectId dataId { get; set; }
+
     public required int id { get; set; }
 
     public required DateTime date { get; set; }
