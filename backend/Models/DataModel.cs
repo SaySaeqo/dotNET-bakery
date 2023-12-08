@@ -4,16 +4,12 @@ using MongoDB.Bson.Serialization.Attributes;
 public class DataModel
 {
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
+    [BsonRepresentation(BsonType.Int32)]
+    public required int id { get; set; }
 
-    public DateTime Date { get; set; }
+    public required DateTime date { get; set; }
 
-    public TimeSpan Time { get; set; }
+    public required int value { get; set; }
 
-    public bool IsCritical { get; set; }
-
-    public int Value { get; set; }
-
-    public string Type { get; set; }
+    public required string type { get; set; }
 }

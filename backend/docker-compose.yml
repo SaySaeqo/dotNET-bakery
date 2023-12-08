@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - 27017:27017
+  backend:
+    build: .
+    ports:
+      - 80:80
+    depends_on:
+      - mongo
+volumes:
+  mongodb_data:

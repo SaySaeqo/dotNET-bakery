@@ -1,15 +1,39 @@
 using MongoDB.Driver;
+using Microsoft.Extensions.Options;
+using dotNet_bakery.Models;
+using MongoDB.Bson;
 
+namespace dotNet_bakery.Repo;
 public class DataRepository
 {
     private readonly IMongoCollection<DataModel> _dataModels;
 
-    public DataRepository(IMongoClient client)
+    public DataRepository(IOptions<MongoDBSettings> mongoDBSetting)
     {
-        var database = client.GetDatabase("testdb");
-        _dataModels = database.GetCollection<DataModel>("datamodels");
+        MongoClient client = new MongoClient(mongoDBSetting.Value.ConnectionURI);
+        IMongoDatabase database = client.GetDatabase(mongoDBSetting.Value.DatabaseName);
+        _dataModels = database.GetCollection<DataModel>(mongoDBSetting.Value.CollectionName);
+
+        //var database = client.GetDatabase("testdb");
+        //_dataModels = database.GetCollection<DataModel>("datamodels");
     }
 
+    public async Task CreateAsync(DataModel dataModel){
+        await _dataModels.InsertOneAsync(dataModel);
+        return;
+    }
+
+    public async Task<List<DataModel>> GetAsync(){
+        return await _dataModels.Find(new BsonDocument()).ToListAsync();
+    }
+
+    public async Task DeleteAsync(string id){
+        FilterDefinition<DataModel> filter = Builders<DataModel>.Filter.Eq("id", id);
+        await _dataModels.DeleteOneAsync(filter);
+        return;
+    }
+
+/*
     public List<DataModel> Get() =>
         _dataModels.Find(dataModel => true).ToList();
 
@@ -30,4 +54,5 @@ public class DataRepository
 
     public void Remove(string id) => 
         _dataModels.DeleteOne(dataModel => dataModel.Id == id);
+        */
 }

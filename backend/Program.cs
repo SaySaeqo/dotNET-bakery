@@ -1,5 +1,10 @@
+using dotNet_bakery.Models;
+using dotNet_bakery.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+builder.Services.AddSingleton<DataRepository>();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -19,6 +24,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Json}/{action=Index}/{id?}");
+    pattern: "{controller=My}/{action=Index}/{id?}");
 
 app.Run();
