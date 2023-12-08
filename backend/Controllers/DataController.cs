@@ -2,6 +2,8 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using dotNet_bakery.Models;
 using dotNet_bakery.Repo;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace dotNet_bakery.Controller;
 
@@ -27,8 +29,8 @@ public class DataController: ControllerBase{
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id){
-        await _dataRepository.DeleteAsync(id);
+    public async Task<IActionResult> Delete(ObjectId dataId){
+        await _dataRepository.DeleteAsync(dataId);
         return NoContent();
     }
 

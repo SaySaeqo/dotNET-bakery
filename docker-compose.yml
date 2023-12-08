@@ -16,8 +16,8 @@ services:
     ports:
       - 27017:27017
   backend:
-    build:
-      context: ./backend
+    build: ./backend
+    restart: always
     ports:
       - 8081:8081
     depends_on:
