@@ -1,5 +1,13 @@
 version: '3.8'
+
 services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
   mongo:
     image: mongo
     restart: always
@@ -8,9 +16,10 @@ services:
     ports:
       - 27017:27017
   backend:
-    build: .
+    build:
+      context: ./backend
     ports:
-      - 80:80
+      - 8081:8081
     depends_on:
       - mongo
 volumes:
