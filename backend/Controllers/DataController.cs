@@ -23,7 +23,7 @@ public class DataController: ControllerBase{
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] DataModel dataModel){
         await _dataRepository.CreateAsync(dataModel);
-        return CreatedAtAction(nameof(Get), new {id = dataModel.Id}, dataModel);
+        return CreatedAtAction(nameof(Get), new {id = dataModel.id}, dataModel);
     }
 
     [HttpDelete("{id}")]
