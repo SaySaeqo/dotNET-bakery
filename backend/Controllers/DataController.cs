@@ -26,8 +26,7 @@ public class DataController : ControllerBase
     {
         _logger = logger;
         _dataRepository = dataRepository;
-        _logger.LogInformation("DataController constructor");
-        ConfigureMqttClient();
+        _logger.LogInformation("DataController constructor");        
     }
 
     [Route("")]
@@ -159,41 +158,6 @@ public class DataController : ControllerBase
         }
 
         return sensors;
-    }
-
-    private void ConfigureMqttClient(){
-        var options = new ManagedMqttClientOptionsBuilder()
-            .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
-            .WithClientOptions(new MqttClientOptionsBuilder()
-                .WithClientId("backend")
-                .WithTcpServer("rabbitmq", 1883)
-                .Build())
-            .Build();
-
-        _mqttClient = new MqttFactory().CreateManagedMqttClient();
-        _mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("sensor/data").Build()).ContinueWith(task => {
-            if (task.IsFaulted)
-                _logger.LogError($"Failed to subscribe to topic: {task.Exception}");
-            else
-                _logger.LogInformation("Successfully subscribed to topic");
-        });
-        _mqttClient.UseApplicationMessageReceivedHandler(e =>
-        {
-            var message = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-            _logger.LogInformation($"Received message: {message}"); 
-            DataModel dataModel = JsonConvert.DeserializeObject<DataModel>(message);
-            HandleReceivedData(dataModel);
-        });
-        _mqttClient.StartAsync(options).ContinueWith(task => {
-            if (task.IsFaulted)
-                _logger.LogError($"Failed to connect to RabbitMQ: {task.Exception}");
-            else
-                _logger.LogInformation("Successfully connected to RabbitMQ");
-        });
-    }
-
-    private async void HandleReceivedData(DataModel dataModel){
-        await _dataRepository.CreateAsync(dataModel);
     }
 
     [HttpPut]
