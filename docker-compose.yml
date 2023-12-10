@@ -11,7 +11,7 @@ services:
     build: ./backend
     restart: always
     ports:
-      - 80:80
+      - 80:80    
     depends_on:
       - mongo
       - rabbitmq
@@ -30,6 +30,8 @@ services:
   data-generator:
     build: ./data-generator
     restart: always
+    volumes:
+      - ./data-generator/config.json:/app/config.json
     depends_on:
       - rabbitmq
 volumes:

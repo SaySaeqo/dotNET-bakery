@@ -1,21 +1,21 @@
 {
     "sensors": [
-      {"id": 1, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 2, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 3, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 4, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 5, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 6, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 7, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 8, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 9, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 10, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 11, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 12, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 13, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 14, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 15, "minValue": 0, "maxValue": 100, "timesPerMinute": 5},
-      {"id": 16, "minValue": 0, "maxValue": 100, "timesPerMinute": 50}
+      {"id": 1, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 2, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 3, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 4, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 5, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 6, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 7, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 8, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 9, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 10, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 11, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 12, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 13, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 14, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 15, "minValue": 0, "maxValue": 100, "timesPerMinute": 5, "setValue": null},
+      {"id": 16, "minValue": 0, "maxValue": 100, "timesPerMinute": 100, "setValue": 33}
     ]
-  }
+}
   
