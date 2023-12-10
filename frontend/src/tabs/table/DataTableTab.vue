@@ -121,7 +121,7 @@ export default {
           types: [],
           ids: [],
         },
-        idsItems: Array.from(Array(config.measurementTypesNumber * config.sensorsPerTypeNumber).keys()),
+        idsItems: Array.from({ length: config.measurementTypesNumber * config.sensorsPerTypeNumber }, (_, i) => i + 1),
         sortBy: null,
         showCharts: false,
       };
