@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 
 namespace dotNet_bakery.Controllers;
 
-
+[EnableCors("CorsPolicy")]
 [Route("")]
 public class DataController : ControllerBase
 {
@@ -76,7 +76,7 @@ public class DataController : ControllerBase
     }
 
 
-    [HttpGet]
+    [HttpPost]
     [Route("json")]
     [Produces("application/json")]
     public async Task<List<DataModel>> GetJson([FromBody] RequestBody? body)
@@ -84,7 +84,7 @@ public class DataController : ControllerBase
         return await GetFilteredAndSorted(body);
     }
 
-    [HttpGet]
+    [HttpPost]
     [Route("csv")]
     [Produces("text/csv")]
     public async Task<ContentResult> GetCsv([FromBody] RequestBody? body)
