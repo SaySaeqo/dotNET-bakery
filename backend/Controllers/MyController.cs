@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using dotNet_bakery.Repo; 
 using dotNet_bakery.Models;
 using System.Text;
+using Microsoft.AspNetCore.Cors;
 
 namespace dotNet_bakery.Controllers;
 
 
+[EnableCors("CorsPolicy")]
 [Route("")]
 public class MyController : ControllerBase
 {
@@ -66,7 +68,7 @@ public class MyController : ControllerBase
     }
 
 
-    [HttpGet]
+    [HttpPost]
     [Route("json")]
     [Produces("application/json")]
     public async Task<List<DataModel>> GetJson([FromBody] RequestBody? body)
@@ -74,7 +76,7 @@ public class MyController : ControllerBase
         return await GetFilteredAndSorted(body);
     }
 
-    [HttpGet]
+    [HttpPost]
     [Route("csv")]
     [Produces("text/csv")]
     public async Task<ContentResult> GetCsv([FromBody] RequestBody? body)

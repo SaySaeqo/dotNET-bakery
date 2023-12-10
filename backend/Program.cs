@@ -5,6 +5,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<DataRepository>();
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -25,5 +33,11 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=My}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "test",
+    pattern: "{controller=My}/{action=Test}");
+
+app.UseCors("CorsPolicy");
 
 app.Run();
