@@ -1,17 +1,26 @@
 version: '3.8'
+
 services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
   mongo:
-    image: mongo
+    image: mongo:latest
     restart: always
     volumes:
       - mongodb_data:/data/db
     ports:
       - 27017:27017
   backend:
-    build: ./backend
+    build: 
+      context: ./backend
     restart: always
     ports:
-      - 80:80    
+      - 8081:80
     depends_on:
       - mongo
       - rabbitmq
