@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Cors;
 
 namespace dotNet_bakery.Controllers;
 
@@ -113,8 +114,9 @@ public class DataController : ControllerBase
         };
         List<DataModel> dataModels = await GetFilteredAndSorted(body);
 
-        int last = dataModels.First().value;
+        int last = dataModels.Last().value;
         // get first 100 values from list
+        dataModels.Reverse();
         dataModels = dataModels.Take(100).ToList();
         // calculate average
         double average = dataModels.Average(s => s.value);
