@@ -27,7 +27,7 @@ public class DataController : ControllerBase
     {
         _logger = logger;
         _dataRepository = dataRepository;
-        _logger.LogInformation("DataController constructor");        
+        //_logger.LogInformation("DataController constructor");        
     }
 
     [Route("")]

@@ -37,6 +37,8 @@ function loadConfigAndStartGeneration() {
   // Read the sensor configuration from the config file
   const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
   sensors = config.sensors;
+  generate = config.generate;
+  if(!generate) return;
 
   // Start data generation for each sensor
   for (let sensor of sensors) {
