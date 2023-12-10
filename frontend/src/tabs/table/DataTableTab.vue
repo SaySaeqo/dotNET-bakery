@@ -24,14 +24,14 @@
                             <v-text-field
                             v-model="filters.fromDateTime"
                             label="From date"
-                            hint="yyyy-mm-dd"
+                            hint="yyyy-mm-dd hh:mm:ss"
                             />
                         </v-col>
                         <v-col>
                             <v-text-field 
                             v-model="filters.toDateTime"
                             label="To date"
-                            hint="yyyy-mm-dd"
+                            hint="yyyy-mm-dd hh:mm:ss"
                             />
                         </v-col>
                         <v-col>
