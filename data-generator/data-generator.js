@@ -1,12 +1,12 @@
 console.log('Start of the script');
 const mqtt = require('mqtt');
 const fs = require('fs');
+const gaze = require('gaze');
 const topic = 'sensor/data';
 const sensorTypes = ['temperature', 'weight', 'gas_density', 'humidity'];
 
-// Read the sensor configuration from the config file
-const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
-const sensors = config.sensors;
+let sensors = [];
+let intervals = [];
 
 // Connect to the RabbitMQ server
 console.log('Attempting to connect to RabbitMQ server...');
@@ -19,21 +19,44 @@ client.on('connect', function () {
     console.log(`Subscribe to topic '${topic}'`)
   })
 
-  // Start data generation for each sensor
-  for (let sensor of sensors) {
-    setInterval(() => generateData(sensor), Math.floor(60/sensor.timesPerMinute * 1000));
-  }
+  // Load the sensor configuration and start data generation
+  loadConfigAndStartGeneration();
 });
 
 client.on('error', function (err) {
   console.error('An error occurred:', err);
 });
 
+function loadConfigAndStartGeneration() {
+  // Clear all existing intervals
+  for (let interval of intervals) {
+    clearInterval(interval);
+  }
+  intervals = []; // Reset the intervals array
+
+  // Read the sensor configuration from the config file
+  const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+  sensors = config.sensors;
+
+  // Start data generation for each sensor
+  for (let sensor of sensors) {
+    let interval = setInterval(() => generateData(sensor), Math.floor(60/sensor.timesPerMinute * 1000));
+    intervals.push(interval); // Store the interval ID
+  }
+}
+
 function generateData(sensor) {
+  let value;
+  if (sensor.setValue !== null) {
+    value = sensor.setValue;
+  } else {
+    value = Math.floor(Math.random() * (sensor.maxValue - sensor.minValue + 1)) + sensor.minValue;
+  }
+
   const data = {
     id: sensor.id,
     date: new Date(),
-    value: Math.floor(Math.random() * (sensor.maxValue - sensor.minValue + 1)) + sensor.minValue,
+    value: value,
     type: sensorTypes[(sensor.id - 1) % sensorTypes.length],
   };
 
@@ -47,3 +70,11 @@ function generateData(sensor) {
     }
   });
 }
+
+// Watch for changes in the config file using gaze
+gaze('config.json', function(err, watcher) {
+  this.on('changed', function(filepath) {
+    console.log(`config.json has been updated. Reloading configuration...`);
+    loadConfigAndStartGeneration();
+  });
+});
