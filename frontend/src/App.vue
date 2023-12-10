@@ -1,52 +1,38 @@
 <template>
   <div class="content">
-    <v-data-table-server 
-      v-model:items-per-page="itemsPerPage"
-      :headers="headers"
-      :items-length="totalItems"
-      :items="measurements"
-      :loading="loading"
-      :search="search"
-      item-value="id"
-      @update:options="loadItems"
-      theme="dark"
-      class="rounded-lg"
-    />
-    <charts-view></charts-view>
+    <v-card>
+      <v-tabs v-model="tab">
+        <v-tab value="table">Table</v-tab>
+        <v-tab value="charts">Charts</v-tab>
+      </v-tabs>
+      <v-card-text>
+        <v-window v-model="tab">
+          <v-window-item value="table">
+            <data-table-tab></data-table-tab>
+          </v-window-item>
+          <v-window-item value="charts">
+            <charts-tab></charts-tab>
+          </v-window-item>
+        </v-window>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
 <script>
-import ChartsView from './chart/ChartsView';
+import DataTableTab from './tabs/table/DataTableTab';
+import ChartsTab from './tabs/chart/ChartsTab';
 
 export default {
   name: 'App',
-  components: { ChartsView },
+  components: {
+    DataTableTab,
+    ChartsTab
+  },
   data() {
     return {
-      itemsPerPage: 10,
-      headers: [
-        { title: 'Id', key: 'id', sortable: false },
-        { title: 'Date', key: 'date', sortable: true },
-        { title: 'Time', key: 'time', sortable: true },
-        { title: 'Critical', key: 'isCritical', sortable: false },
-        { title: 'Value', key: 'value', sortable: true },
-        { title: 'Type', key: 'type', sortable: false },
-      ],
-      totalItems: 100,
-      measurements: [ { id: 1, date: "03-12-2023", time: "21:11", isCritical: false, value: 100.0, type: "Temperature" } ],
-      loading: false,
-      search: '',
+      tab: null,
     };
-  },
-  methods: {
-    loadItems() {
-      this.loading = true;
-      // API call
-      // this.measurements = measurements;
-      // this.totalItems = total;
-      this.loading = false;
-    }
   },
 }
 </script>
@@ -58,7 +44,7 @@ export default {
 
 .content {
   padding: 30px;
-  background-color: #424242;
+  background-color: #212121;
   height: 100vh;
   overflow: auto;
 }
